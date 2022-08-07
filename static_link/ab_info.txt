@@ -1,0 +1,116 @@
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF64
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           Advanced Micro Devices X86-64
+  Version:                           0x1
+  Entry point address:               0x401000
+  Start of program headers:          64 (bytes into file)
+  Start of section headers:          12800 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               64 (bytes)
+  Size of program headers:           56 (bytes)
+  Number of program headers:         7
+  Size of section headers:           64 (bytes)
+  Number of section headers:         9
+  Section header string table index: 8
+
+ab:     file format elf64-x86-64
+
+Sections:
+Idx Name          Size      VMA               LMA               File off  Algn
+  0 .note.gnu.property 00000020  00000000004001c8  00000000004001c8  000001c8  2**3
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  1 .text         00000081  0000000000401000  0000000000401000  00001000  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .eh_frame     00000058  0000000000402000  0000000000402000  00002000  2**3
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  3 .data         00000004  0000000000404000  0000000000404000  00003000  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  4 .comment      0000002b  0000000000000000  0000000000000000  00003004  2**0
+                  CONTENTS, READONLY
+There are 9 section headers, starting at offset 0x3200:
+
+Section Headers:
+  [Nr] Name              Type             Address           Offset
+       Size              EntSize          Flags  Link  Info  Align
+  [ 0]                   NULL             0000000000000000  00000000
+       0000000000000000  0000000000000000           0     0     0
+  [ 1] .note.gnu.propert NOTE             00000000004001c8  000001c8
+       0000000000000020  0000000000000000   A       0     0     8
+  [ 2] .text             PROGBITS         0000000000401000  00001000
+       0000000000000081  0000000000000000  AX       0     0     1
+  [ 3] .eh_frame         PROGBITS         0000000000402000  00002000
+       0000000000000058  0000000000000000   A       0     0     8
+  [ 4] .data             PROGBITS         0000000000404000  00003000
+       0000000000000004  0000000000000000  WA       0     0     4
+  [ 5] .comment          PROGBITS         0000000000000000  00003004
+       000000000000002b  0000000000000001  MS       0     0     1
+  [ 6] .symtab           SYMTAB           0000000000000000  00003030
+       0000000000000150  0000000000000018           7     8     8
+  [ 7] .strtab           STRTAB           0000000000000000  00003180
+       0000000000000032  0000000000000000           0     0     1
+  [ 8] .shstrtab         STRTAB           0000000000000000  000031b2
+       000000000000004d  0000000000000000           0     0     1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+  L (link order), O (extra OS processing required), G (group), T (TLS),
+  C (compressed), x (unknown), o (OS specific), E (exclude),
+  l (large), p (processor specific)
+
+ab:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000401000 <main>:
+  401000:	f3 0f 1e fa          	endbr64 
+  401004:	55                   	push   %rbp
+  401005:	48 89 e5             	mov    %rsp,%rbp
+  401008:	48 83 ec 10          	sub    $0x10,%rsp
+  40100c:	c7 45 fc 64 00 00 00 	movl   $0x64,-0x4(%rbp)
+  401013:	48 8d 45 fc          	lea    -0x4(%rbp),%rax
+  401017:	48 8d 35 e2 2f 00 00 	lea    0x2fe2(%rip),%rsi        # 404000 <shared>
+  40101e:	48 89 c7             	mov    %rax,%rdi
+  401021:	b8 00 00 00 00       	mov    $0x0,%eax
+  401026:	e8 07 00 00 00       	callq  401032 <swap>
+  40102b:	b8 00 00 00 00       	mov    $0x0,%eax
+  401030:	c9                   	leaveq 
+  401031:	c3                   	retq   
+
+0000000000401032 <swap>:
+  401032:	f3 0f 1e fa          	endbr64 
+  401036:	55                   	push   %rbp
+  401037:	48 89 e5             	mov    %rsp,%rbp
+  40103a:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+  40103e:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
+  401042:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  401046:	8b 10                	mov    (%rax),%edx
+  401048:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  40104c:	8b 00                	mov    (%rax),%eax
+  40104e:	31 c2                	xor    %eax,%edx
+  401050:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  401054:	89 10                	mov    %edx,(%rax)
+  401056:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  40105a:	8b 10                	mov    (%rax),%edx
+  40105c:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  401060:	8b 00                	mov    (%rax),%eax
+  401062:	31 c2                	xor    %eax,%edx
+  401064:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  401068:	89 10                	mov    %edx,(%rax)
+  40106a:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  40106e:	8b 10                	mov    (%rax),%edx
+  401070:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  401074:	8b 00                	mov    (%rax),%eax
+  401076:	31 c2                	xor    %eax,%edx
+  401078:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  40107c:	89 10                	mov    %edx,(%rax)
+  40107e:	90                   	nop
+  40107f:	5d                   	pop    %rbp
+  401080:	c3                   	retq   
+
+There are no relocations in this file.
